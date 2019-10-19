@@ -1,0 +1,82 @@
+<html>
+<head>
+  <title>pattern</title>
+  <!-- <script type="text/javascript">
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+      }
+    }
+  </script> -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+
+        /* Code Here */
+
+        const img1 = new Image();
+        const img2 = new Image();
+        img1.src = './pattern3.png';
+        img2.src = './pattern2.png';
+
+        img1.onload = function () {
+          const pattern1 = ctx.createPattern(img1, 'repeat');
+          ctx.fillStyle = pattern1;
+          ctx.fillRect(0,0,cw,ch);
+        }
+
+        img2.onload = function() {
+          ctx.beginPath();
+          const pattern2 = ctx.createPattern(img2, 'repeat');
+          ctx.fillStyle = pattern2;
+          ctx.font = '300px serif';
+          ctx.fillText('napoli666', 300, 300);
+        }
+
+        // Gradient
+        setTimeout(() => {
+          const linearGradient = ctx.createLinearGradient(100, 300, 300, 500);
+          linearGradient.addColorStop(0, 'teal');
+          linearGradient.addColorStop(1, 'violet');
+
+          ctx.beginPath();
+          ctx.fillStyle = linearGradient;
+          ctx.fillRect(100, 300, 300, 500);
+        }, 500);
+
+
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<html>
+<head>
+  <title>path-3 curve</title>
+  <!-- <script type="text/javascript">
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+      }
+    }
+  </script> -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+
+        /* Code Here */
+        
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#000';
+        ctx.arc(100, 100, 50, 0, Math.PI * 2, false);
+        ctx.stroke();
+
+        ctx.beginPath();
+        drawRadiusRect(200,50, 200, 200, 30);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(500, 100);
+        ctx.arcTo(600, 100, 600, 200, 50);
+        ctx.lineTo(600, 240);
+        ctx.strokeStyle = 'coral';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.ellipse(200, 500, 100, 60, Math.PI / 2, Math.PI * 2, false);
+        ctx.stroke();
+
+        function drawRadiusRect (x, y, w, h, r) {
+          const pi = Math.PI;
+          ctx.arc(x + r, y + r, r, pi, pi * 3/2, false);
+          ctx.lineTo(x + w - r, y);
+          ctx.arc(x + w - r, y + r, r, pi * 3/2, pi * 2, false);
+          ctx.lineTo(x + w, y + h - r);
+          ctx.arc(x + w -r, y + h - r, r, 0, pi * 1/2, false);
+          ctx.lineTo(x + r, y + h);
+          ctx.arc(x + r, y + h -r, r, pi * 1/2, pi, false);
+        }
+
+
+      }
+    }
+  </script>
+</body>
+</html>
