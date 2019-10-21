@@ -28,10 +28,12 @@
 </head>
 <body onload="draw();">
   <canvas id="canvas" ></canvas>
+  <img src="" alt="" id="imageEl">
 
   <script>
     function draw(){
       const canvas = document.getElementById('canvas');
+      const imageEl = document.getElementById('imageEl');
       if (canvas.getContext){
         const ctx = canvas.getContext('2d');
         let cw = canvas.width = window.innerWidth;
@@ -40,9 +42,45 @@
         window.onresize = () => {
           cw = canvas.width = window.innerWidth;
           ch = canvas.height = window.innerHeight;
+          draw();
         }
+        ctx.fillStyle = '#fff'
+        ctx.fillRect(0,0,cw,ch)
 
         /* Code Here */
+        const image = document.createElement('img');
+        image.src = './demo.jpeg';
+
+        image.onload = () => {
+          ctx.drawImage(image, 0,0,200,200);
+          ctx.drawImage(image, 300, 180, 350, 440, 300, 0, 350, 440)
+          ctx.drawImage(image, 700,0);
+
+          // 操作imageData，反色处理
+          const imageData = ctx.getImageData(0,0,200,200);
+          const len = imageData.data.length;
+          for (let i = 0; i < len; i+=4) { 
+            imageData.data[i] = 255 - imageData.data[i];
+            imageData.data[i + 1] = 256 - imageData.data[i + 1];
+            imageData.data[i + 2] = 256 - imageData.data[i + 2];
+          }
+          ctx.putImageData(imageData, 0, 300);
+
+          // 新建imageData
+          const newImageData = ctx.createImageData(200, 200);
+          const newLen = newImageData.data.length;
+          for (let i = 0; i < len; i+=4) { // 反色处理
+            newImageData.data[i] = 0;
+            newImageData.data[i + 1] = 0;
+            newImageData.data[i + 2] = 100;
+            newImageData.data[i + 3] = 116;
+          }
+          ctx.putImageData(newImageData, 0, 600);
+
+          console.log(canvas.toDataURL())
+          imageEl.src = canvas.toDataURL('image/jpeg', 0.6)
+        }
+        
         
 
 

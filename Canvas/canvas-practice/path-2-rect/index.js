@@ -7,6 +7,7 @@ const ch = c.height = window.innerHeight;
 window.onresize = () => {
   cw = c.width = window.innerWidth;
   ch = c.height = window.innerHeight;
+  // draw();
 }
 
 ctx.beginPath();

@@ -40,6 +40,7 @@
         window.onresize = () => {
           cw = canvas.width = window.innerWidth;
           ch = canvas.height = window.innerHeight;
+          draw();
         }
 
         /* Code Here */
@@ -72,6 +73,18 @@
           ctx.beginPath();
           ctx.fillStyle = linearGradient;
           ctx.fillRect(100, 300, 300, 500);
+
+          const radialGradient = ctx.createRadialGradient(700, 500, 0, 700, 500, 150);
+          radialGradient.addColorStop(0, 'teal');
+          radialGradient.addColorStop(1, '#f40');
+
+          ctx.beginPath();
+          ctx.fillStyle = radialGradient;
+          ctx.strokeStyle = '#000';
+          ctx.lineWidth = 5;
+          ctx.arc(700,500, 150, 0, Math.PI * 2, false);
+          ctx.stroke();
+          ctx.fill();
         }, 500);
 
 
