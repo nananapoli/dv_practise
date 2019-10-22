@@ -22,6 +22,9 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript">
+
+    // key point: draw the curve, and update the position data
+
     var c = document.getElementById('c'),
         ctx = c.getContext('2d'),
         cw = c.width = window.innerWidth,
@@ -29,7 +32,7 @@
         points = [],
         tick = 0,
         opt = {
-          count: 5,
+          count: 4,
           range: {
             x: 20,
             y: 80
@@ -38,9 +41,9 @@
             min: 20,
             max: 40
           },
-          thickness: 10,
+          thickness: 20,
           strokeColor: '#444',
-          level: .85,
+          level: .66,
           curved: true
         },
         rand = function(min, max){
@@ -54,6 +57,8 @@
     ctx.lineJoin = 'round';
     ctx.lineWidth = opt.thickness;
     ctx.strokeStyle = opt.strokeColor;
+    // ctx.translate(cw / 2, ch / 2);
+    // ctx.scale(0.1,0.1);
 
     var Point = function(config){
       this.anchorX = config.x;
@@ -116,6 +121,7 @@
       }
     };
 
+    // 其实画了一个梯形，然后将上底形变为贝塞尔曲线
     var renderShape = function(){
       ctx.beginPath();
       var pointCount = points.length;
@@ -144,7 +150,7 @@
       clear();
       updatePoints();
       renderShape();
-      //renderPoints();
+      // renderPoints();
     };
 
     var i = opt.count + 2;
@@ -155,7 +161,6 @@
         y: ch - (ch * opt.level)
       }));
     }
-    console.log(points)
 
     window.requestAnimFrame=function(){
       return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(a){window.setTimeout(a,1E3/60)}

@@ -3,6 +3,29 @@ const ctx = canvas.getContext('2d');
 
 const cw = c.width = window.innerWidth;
 const ch = c.height = window.innerHeight;
+ctx.translate(cw / 2, ch / 2);
+ctx.scale(0.5,0.5);
+// ctx.rotate(90 * Math.PI / 180);
+
+ctx.strokeStyle = '#000';
+ctx.fillStyle = '#000';
+ctx.lineWidth = 5;
+ctx.strokeRect(-100, -100, 50, 50);
+ctx.arc(0,0,5,0,Math.PI*2,false);
+ctx.stroke();
+ctx.fill();
+
+// 绘制坐标系
+ctx.beginPath();
+ctx.moveTo(0,-ch);
+ctx.lineTo(0, ch);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(cw,0);
+ctx.lineTo(-cw, 0);
+ctx.stroke();
+
 
 window.onresize = () => {
   cw = c.width = window.innerWidth;

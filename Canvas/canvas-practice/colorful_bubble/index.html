@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>colorful_bubble</title>
+  <!-- <script type="text/javascript">
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+      }
+    }
+  </script> -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+          draw();
+        }
+
+        /* Code Here */
+        ctx.globalAlpha = 0.5;
+
+        for(let i = 0; i < 100; i++) {
+          const R = Math.floor(Math.random() * 255);
+          const G = Math.floor(Math.random() * 255);
+          const B = Math.floor(Math.random() * 255);
+          const x = Math.floor(Math.random() * cw);
+          const y = Math.floor(Math.random() * ch);
+          const r = Math.floor(Math.random() * 100);
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgb(${R},${G},${B})`;
+          ctx.arc(x,y,r,0,Math.PI*2);
+          ctx.fill();
+        }
+
+
+      }
+    }
+  </script>
+</body>
+</html>
