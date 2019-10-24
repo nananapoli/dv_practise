@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Canvas Practice - Text</title>
+  <title>Bar Chart</title>
   <!-- <script type="text/javascript">
     function draw(){
       const canvas = document.getElementById('canvas');
@@ -44,24 +44,44 @@
         }
 
         /* Code Here */
-        ctx.translate(100,100);
 
-        ctx.font = 'oblique small-caps 70px serif';
-        ctx.fillStyle = '#f40';
-        ctx.strokeStyle = '#000';
-        ctx.textAlign = 'centerstart';
-
-        ctx.lineWidth = 2;
-
-        ctx.fillText('Napoli gogogo', 0, 0);
-        ctx.strokeText('Napoli gogogo', 200, 400);
-
-        ctx.beginPath();
-        ctx.arc(0,0,3,0,Math.PI*2,false);
-        ctx.fill()
+        const data = [264,67,12,78,187,198,123];
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+        const len = data.length;
         
+        // draw background
+        ctx.fillStyle = 'gray';
+        ctx.fillRect(0,0,800,500);
 
-        console.log(ctx.measureText('Napoli gogogo'))
+        // draw bar and label
+        ctx.font = '12px serif';
+        ctx.fillStyle = 'blue';
+        for(let i = 0; i < len; i++) {
+          const item = data[i]
+          ctx.fillRect(70 + 80 * i, 500 - item - 40, 50, item);
+          ctx.strokeText(labels[i], 85 + 80 * i, 475);
+        }
+
+        // draw axis
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.moveTo(50, 10);
+        ctx.lineTo(50, 460);
+        ctx.lineTo(700, 460);
+        ctx.stroke();
+
+        // draw scale and text
+        ctx.font = '12px serif';
+        for(let i = 0; i < 6; i++) {
+          const item = data[i]
+          ctx.beginPath();
+          ctx.moveTo(50, 460 - i * 80);
+          ctx.lineTo(45, 460 - i * 80);
+          ctx.stroke();
+          ctx.strokeText(`${i * 20}`, 25, 460 - i * 80 + 3);
+        }
+
 
       }
     }

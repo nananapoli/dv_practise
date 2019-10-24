@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Pie Chart</title>
+  <!-- <script type="text/javascript">
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+      }
+    }
+  </script> -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+          draw();
+        }
+
+        /* Code Here */
+        
+        // same data from bar chart
+        const data = [264,67,53,78,187,198,153];
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+        const colorSet = ["#FF6138", "#FFBE53", "#2980B9", "#282741", 'violet', 'teal', 'pink'];
+        const len = data.length;
+        const total = data.reduce((acc, cur) => {
+          return acc + cur;
+        },0);
+
+        let prevAngle = 0;
+
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 1;
+        // data.forEach((item, index) => {
+        //   // calculate angle
+        //   const fraction = item / total;
+        //   const angle = prevAngle + fraction * Math.PI * 2;
+
+        //   ctx.fillColor = lables[i];
+
+        //   // draw the path
+        //   ctx.beginPath();
+        //   ctx.moveTo(500,500);
+        //   ctx.ar
+        // })
+
+
+        for(let i = 0; i < len; i++) {
+          // calculate angle
+          const fraction = data[i] / total;
+          const angle = prevAngle + fraction * Math.PI * 2;
+          console.log(angle)
+
+          ctx.fillStyle = colorSet[i];
+
+          // draw the path
+          ctx.beginPath();
+          ctx.moveTo(500,500);
+          ctx.arc(500,500,300,prevAngle,angle,false);
+          ctx.closePath();
+          
+          // fill it
+          ctx.fill()
+          // ctx.stroke();
+          prevAngle = angle; 
+        }
+
+      }
+    }
+  </script>
+</body>
+</html>
