@@ -1,0 +1,130 @@
+<html>
+<head>
+  <title>combine stuff</title>
+  <!-- <script type="text/javascript">
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+      }
+    }
+  </script> -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+          draw();
+        }
+
+        /* Code Here */
+        const deg = Math.PI / 180;
+        const resetStatus = () => {
+          ctx.restore();
+          ctx.save();
+        }
+
+        ctx.rect(0,0,100,100);
+        ctx.stroke();
+        console.log(ctx.isPointInStroke(0,0))
+
+        // ctx.rect(10, 10, 100, 100);
+        // ctx.stroke();
+        // console.log(ctx.isPointInPath(52, 10));
+        
+        /* 
+          state saving 
+        */
+
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0,0,100,100);
+        ctx.save()
+
+        // property modify
+        ctx.translate(200, 100);
+        ctx.rotate(deg * 45);
+        ctx.fillStyle = '#f40';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 5;
+        ctx.rect(0,0, 100,100);
+        ctx.fill();
+        ctx.stroke();
+
+        resetStatus()
+        ctx.fillRect(0,200,100,100);
+        
+        /* 
+          clip 
+        */
+        ctx.translate(400,0);
+
+        // draw red rectangle
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0,0,400,100);
+
+        // draw triangle
+        ctx.beginPath(); 
+        ctx.moveTo(200, 50);
+        ctx.lineTo(250,150);
+        ctx.lineTo(150, 150);
+        ctx.closePath();
+        ctx.lineWidth = 5;
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
+
+        // use triangle as a clip
+        ctx.clip();
+
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(0,0,400,400);
+
+        resetStatus();
+
+        /*
+          isPointInPath
+        */
+        ctx.translate(400,400);
+        ctx.beginPath();
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 10;
+        ctx.moveTo(0,0);
+        ctx.lineTo(100,0);
+        // ctx.arc(100,100,40,0,deg * 360,false);
+        ctx.stroke();
+
+        const a = ctx.isPointInStroke(80,0);
+        console.log(a)
+
+
+      }
+    }
+  </script>
+</body>
+</html>

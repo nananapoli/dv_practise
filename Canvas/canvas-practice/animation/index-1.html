@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Pie Chart</title>
+  <title>moving ball</title>
   <!-- <script type="text/javascript">
     function draw(){
       const canvas = document.getElementById('canvas');
@@ -44,49 +44,35 @@
         }
 
         /* Code Here */
+        /*  */
         
-        // same data from bar chart
-        const data = [264,67,53,78,187,198,153];
-        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-        const colorSet = ["#FF6138", "#FFBE53", "#2980B9", "#282741", 'violet', 'teal', 'pink'];
-        const len = data.length;
-        const total = data.reduce((acc, cur) => {
-          return acc + cur;
-        },0);
-
-        let prevAngle = 30 * (Math.PI / 180);
-
-        ctx.strokeStyle = '#000';
-        ctx.lineWidth = 1;
-
-        
-
-        for(let i = 0; i < len; i++) {
-          // calculate angle
-          const fraction = data[i] / total;
-          const angle = prevAngle + fraction * Math.PI * 2;
-
-          ctx.fillStyle = colorSet[i];
-
-          // add gradient;
-          // const gradient = ctx.createRadialGradient(500,500,0,500,500,300);
-          // gradient.addColorStop(0, '#fff');
-          // gradient.addColorStop(1,colorSet[i]);
-          // ctx.fillStyle = gradient;
-
-          // draw the path
+        /* moving red rectangle */
+        var x = 100;
+        var y = 100;
+        var xSpeed = 10;
+        var ySpeed = 5;
+        function drawRect() {
+          window.requestAnimationFrame(drawRect)
+          ctx.clearRect(0,0,cw,ch)
           ctx.beginPath();
-          ctx.moveTo(500,500);
-          ctx.arc(500,500,300,prevAngle,angle,false);
+          ctx.fillStyle = 'red';
+          ctx.arc(x,y,50,0,Math.PI*2,false);
+          ctx.fill();
           ctx.closePath();
-          
-          // fill it
-          ctx.fill()
-          // ctx.stroke();
-          prevAngle = angle; 
-        }
 
-        // todo: add labels on the edge of each slice
+          x += xSpeed;
+          y += ySpeed;
+          
+          if(x + 50 > cw || x - 50 < 0) {
+            xSpeed = -xSpeed
+          }
+          if(y + 50 > ch || y - 50 < 0) {
+            ySpeed = -ySpeed;
+          }
+        }
+        drawRect();
+
+
       }
     }
   </script>

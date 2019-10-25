@@ -1,0 +1,103 @@
+<html>
+<head>
+  <title>particle animation</title>
+  <!-- <script type="text/javascript">
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+        }
+      }
+    }
+  </script> -->
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+          draw();
+        }
+
+        /* Code Here */
+        const particles = [];
+        const tick = 0;
+
+        function createParticles() {
+          if(tick % 10 === 0) {
+            if(particles.length < 100) {
+              particles.push({
+                x: Math.ceil(Math.random() * cw),
+                y: 0,
+                speed: Math.ceil(Math.random() * 3 + 2),
+                radius: Math.ceil(Math.random() * 5 + 5),
+                color: 'white'
+              })
+            }
+          }
+        }
+
+        function updateParticles() {
+          particles.forEach(par => par.y += par.speed);
+        }
+
+        function drawParticles() {
+          ctx.fillStyle = '#000';
+          ctx.fillRect(0,0,cw,ch);
+
+          particles.forEach(par => {
+            ctx.beginPath();
+            ctx.arc(par.x,par.y,par.radius,0,Math.PI*2,false);
+            ctx.closePath();
+            ctx.fillStyle = par.color;
+            ctx.fill();
+          })
+        }
+
+        function killParticles() {
+          particles.forEach(par => {
+            if(par.y > ch) {
+              par.y = 0;
+            }
+          })
+        }
+
+        function loop () {
+          window.requestAnimationFrame(loop);
+          createParticles();
+          updateParticles();
+          killParticles();
+          drawParticles();
+        }
+
+        window.requestAnimationFrame(loop);
+        
+      }
+    }
+  </script>
+</body>
+</html>

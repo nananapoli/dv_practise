@@ -50,12 +50,14 @@
         img1.src = './pattern3.png';
         img2.src = './pattern2.png';
 
+        // use pattern to draw rectangle
         img1.onload = function () {
           const pattern1 = ctx.createPattern(img1, 'repeat');
           ctx.fillStyle = pattern1;
           ctx.fillRect(0,0,cw,ch);
         }
 
+        // use pattern to draw text
         img2.onload = function() {
           ctx.beginPath();
           const pattern2 = ctx.createPattern(img2, 'repeat');
