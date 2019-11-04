@@ -48,13 +48,13 @@
         ctx.fillRect(0,0,cw,ch)
 
         /* Code Here */
-        const image = document.createElement('img');
-        image.src = './demo.jpeg';s
-
-        image.onload = () => {
-          ctx.drawImage(image, 0,0,200,200);
-          ctx.drawImage(image, 300, 180, 350, 440, 300, 0, 350, 440)
-          ctx.drawImage(image, 700,0);
+        const demo = new Image();
+        demo.src = './demo.jpeg';
+        demo.onload = () => {
+          return;
+          ctx.drawImage(demo, 0,0,200,200);
+          ctx.drawImage(demo, 300, 180, 350, 440, 300, 0, 350, 440)
+          ctx.drawImage(demo, 700,0);
 
           // 操作imageData，反色处理
           const imageData = ctx.getImageData(0,0,200,200);
@@ -80,7 +80,16 @@
           imageEl.src = canvas.toDataURL('image/jpeg', 0.6)
         }
         
-        
+        const scene = new Image();
+        scene.src = 'lantern.jpg';
+        scene.onload = () => {
+          cw = canvas.width = scene.width;
+          ch = canvas.height = scene.height;
+          ctx.drawImage(scene,0,0);
+
+          //const imageData = ctx.getImageData(0,0,cw,ch);
+          imageEl.src = canvas.toDataURL('image/jpeg', 1);
+        }
 
 
 
