@@ -1,0 +1,1 @@
+some practical implementation from [*Foundation HTML5 Animation width JavsScript*](https://lamberta.github.io/html5-animation/)
