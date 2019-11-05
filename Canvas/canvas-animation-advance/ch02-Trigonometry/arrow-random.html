@@ -35,11 +35,11 @@
         }
 
         /* Code Here */
-        const arrows = Array(70).fill('').map(() => {
+        const arrows = Array(100).fill('').map(() => {
           const newArrow = new Arrow();
           newArrow.x = utils.range(0, cw);
           newArrow.y = utils.range(0, ch);
-          newArrow.color = `hsl(${utils.range(0,255)},80%,60%)`;
+          newArrow.color = utils.randomColor();
           newArrow.scale = Number(Math.random().toFixed(2)) + 0.3;
           return newArrow;
         });

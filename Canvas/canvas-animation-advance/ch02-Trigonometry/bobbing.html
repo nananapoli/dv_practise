@@ -1,0 +1,87 @@
+<html>
+<head>
+  <title>Canvas Practice</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script src="../include/utils.js"></script>
+  <script src="./classes/ball.js"></script>
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+          draw();
+        }
+
+        function clearCanvas() {
+          ctx.clearRect(0,0,cw,ch);
+        }
+
+        /* Code Here */
+        const ball1 = new Ball(30, '#f40');
+        const ball2 = new Ball(30, '#f40');
+        let angle1 = 0;
+        let angle2 = 0;
+        const range = 100;
+        const speedY = 0.05;
+        const speedX = 1;
+        const centerX = cw / 2;
+        const centerY = ch / 2;
+
+        ball1.x = cw / 2;
+        ball1.y = ch / 2;
+
+        ball2.x = cw / 2;
+        ball2.y = ch / 2;
+
+        
+        function drawCoordinateLine() {
+          ctx.strokeStyle = '#000';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, centerY);
+          ctx.lineTo(cw, centerY);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(centerX, 0);
+          ctx.lineTo(centerX, ch);
+          ctx.stroke();
+        }
+
+        (function drawFrame1() {
+          window.requestAnimationFrame(drawFrame1);
+          clearCanvas();
+          drawCoordinateLine();
+          ball1.y = centerY + Math.sin(angle1) * range;
+          ball1.x += speedX;
+          angle1 += speedY;
+          ball1.draw(ctx);
+
+          ball2.y = centerY + Math.cos(angle2) * range;
+          ball2.x -= speedX;
+          angle2 += speedY;
+          ball2.draw(ctx);
+        })()
+
+      }
+    }
+  </script>
+</body>
+</html>

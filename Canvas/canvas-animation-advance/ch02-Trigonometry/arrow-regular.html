@@ -40,8 +40,7 @@
           const rowNum = (Math.ceil(cw / 100));
           newArrow.x = (index + 1) % rowNum * 100;
           newArrow.y = Math.floor(index / rowNum) * 100;
-          newArrow.color = `hsl(${utils.range(0,255)},80%,60%)`;
-          // newArrow.scale = 0.3;
+          newArrow.color = utils.randomColor();
           return newArrow;
         });
         const mouse = utils.captureMouse(canvas);

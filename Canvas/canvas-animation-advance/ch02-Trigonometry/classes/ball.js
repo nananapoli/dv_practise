@@ -24,7 +24,7 @@ Ball.prototype.draw = function (ctx) {
   ctx.arc(0,0,this.radius,0,Math.PI * 2,false);
   ctx.closePath();
   ctx.fill();
-  if(this.lineWidth > 1) {
+  if(this.lineWidth > 0) {
     ctx.stroke();
   }
 

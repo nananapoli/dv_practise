@@ -70,3 +70,8 @@ window.utils.captureMouse = function (element) {
 window.utils.range = function (min, max) {
   return Math.floor((max - min) * Math.random() + min);
 }
+
+window.utils.randomColor = function () {
+  return `rgb(${utils.range(0,255)},${utils.range(0,225)},${utils.range(0,255)}`;
+  // return `hsl(${utils.range(0,255)},80%,60%)`;
+}
