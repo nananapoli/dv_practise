@@ -3,12 +3,14 @@ function Arrow () {
   this.y = 0;
   this.color = '#ff0';
   this.rotation = 0;
+  this.scale = 1;
 }
 
 Arrow.prototype.draw = function (ctx) {
   ctx.save();
   ctx.translate(this.x, this.y);
   ctx.rotate(this.rotation);
+  ctx.scale(this.scale, this.scale);
 
   ctx.lineWidth = 2;
   ctx.fillStyle = this.color;

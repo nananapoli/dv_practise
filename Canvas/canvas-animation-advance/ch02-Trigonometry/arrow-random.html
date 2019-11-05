@@ -35,13 +35,27 @@
         }
 
         /* Code Here */
-        const arrow1 = new Arrow();
+        const arrows = Array(70).fill('').map(() => {
+          const newArrow = new Arrow();
+          newArrow.x = utils.range(0, cw);
+          newArrow.y = utils.range(0, ch);
+          newArrow.color = `hsl(${utils.range(0,255)},80%,60%)`;
+          newArrow.scale = Number(Math.random().toFixed(2)) + 0.3;
+          return newArrow;
+        });
+        const mouse = utils.captureMouse(canvas);
 
-        arrow1.x = cw / 2;
-        arrow1.y = ch / 2;
+        (function drawFrame() {
+          window.requestAnimationFrame(drawFrame, canvas);
+          clearCanvas();
 
-        arrow1.draw(ctx);
-        console.log('lll')
+          arrows.forEach(arrow => {
+            const dx = mouse.x - arrow.x,
+                  dy = mouse.y - arrow.y;
+            arrow.rotation = Math.atan2(dy, dx);
+            arrow.draw(ctx);
+          });
+        })()
 
       }
     }
