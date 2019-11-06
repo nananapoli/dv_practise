@@ -1,0 +1,112 @@
+<html>
+<head>
+  <title>Canvas Practice</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas { 
+      display: block;
+    }
+  </style>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" ></canvas>
+
+  <script src="../include/utils.js"></script>
+  <script>
+    function draw(){
+      const canvas = document.getElementById('canvas');
+      if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        let cw = canvas.width = window.innerWidth;
+        let ch = canvas.height = window.innerHeight;
+        const centerX = cw / 2;
+        const centerY = ch / 2;
+
+        window.onresize = () => {
+          cw = canvas.width = window.innerWidth;
+          ch = canvas.height = window.innerHeight;
+          draw();
+        }
+
+        function clearCanvas() {
+          ctx.clearRect(0,0,cw,ch);
+        }
+
+        function drawCoordinateLine() {
+          ctx.save();
+          ctx.strokeStyle = '#000';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, centerY);
+          ctx.lineTo(cw, centerY);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(centerX, 0);
+          ctx.lineTo(centerX, ch);
+          ctx.stroke();
+          ctx.closePath();
+          ctx.restore();
+        }
+
+        /* Code Here */
+        
+        const negative = {
+          range: 300,
+          angle: 0,
+          xSpeed: 1,
+          ySpeed: 0.05,
+          xPos: centerX,
+          yPos: centerY
+        };
+        const positive = {
+          range: 300,
+          angle: 0,
+          xSpeed: 1,
+          ySpeed: 0.05,
+          xPos: centerX,
+          yPos: centerY
+        };
+
+        ctx.lineWidth = 3;
+
+        drawCoordinateLine();
+
+        (function drawFrame() {
+          window.requestAnimationFrame(drawFrame);
+
+          /* negative */
+          ctx.beginPath();
+          ctx.moveTo(negative.xPos, negative.yPos);
+
+          // new position
+          negative.xPos -= negative.xSpeed;
+          negative.angle -= negative.ySpeed;
+          negative.yPos = centerY + Math.sin(negative.angle) * negative.range;
+
+          ctx.lineTo(negative.xPos, negative.yPos)
+          ctx.stroke();
+          ctx.closePath();
+
+          /* positive */
+          ctx.beginPath();
+          ctx.moveTo(positive.xPos, positive.yPos);
+
+          // new position
+          positive.xPos += positive.xSpeed;
+          positive.angle += positive.ySpeed;
+          positive.yPos = centerY + Math.sin(positive.angle) * (Math.random() + 0.5) * positive.range;
+
+          ctx.lineTo(positive.xPos, positive.yPos)
+          ctx.stroke();
+          ctx.closePath();
+        })()
+
+
+      }
+    }
+  </script>
+</body>
+</html>

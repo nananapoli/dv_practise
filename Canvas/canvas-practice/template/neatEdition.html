@@ -34,9 +34,24 @@
           ctx.clearRect(0,0,cw,ch);
         }
 
+        function drawCoordinateLine() {
+          ctx.save();
+          ctx.strokeStyle = '#000';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, centerY);
+          ctx.lineTo(cw, centerY);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(centerX, 0);
+          ctx.lineTo(centerX, ch);
+          ctx.stroke();
+          ctx.closePath();
+          ctx.restore();
+        }
+
         /* Code Here */
-        console.log(111);
-        console.log(222);
+        
 
 
 

@@ -14,7 +14,6 @@
 <body onload="draw();">
   <canvas id="canvas" ></canvas>
 
-  <script src="../include/utils.js"></script>
   <script src="./classes/ball.js"></script>
   <script>
     function draw(){
@@ -36,19 +35,6 @@
           ctx.clearRect(0,0,cw,ch);
         }
 
-        /* Code Here */
-        let ball = new Ball(50, '#f40'),
-            angleScale = 0,
-            speedScale = 0.03,
-            scaleFloor = 0.2,
-            angleX = 0,
-            angleY = 0,
-            speedX = 0.23,
-            speedY = 0.10,
-            range = 100;
-        ball.x = centerX;
-        ball.y = centerY;
-        
         function drawCoordinateLine() {
           ctx.save();
           ctx.strokeStyle = '#000';
@@ -65,27 +51,37 @@
           ctx.restore();
         }
 
-        (function drawFrame1() {
-          window.requestAnimationFrame(drawFrame1);
+        /* Code Here */
+        const ball = new Ball(50, '#f40');
+        let angle = 0;
+        const speed = 0.02;
+        const radius = 300;
+
+        (function drawFrame() {
+          window.requestAnimationFrame(drawFrame);
           clearCanvas();
           drawCoordinateLine();
 
-          // scale operation
-          ball.scaleX = Math.abs(Math.sin(angleScale)) + scaleFloor;
-          ball.scaleY = Math.abs(Math.sin(angleScale)) + scaleFloor;
+          // orbit
+          ctx.beginPath();
+          ctx.strokeStyle = '#000';
+          ctx.lineWidth = 2;
+          ctx.arc(centerX, centerY,radius,0,Math.PI * 2,false);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.ellipse(centerX,centerY,400,200,0,0,Math.PI * 2);
+          ctx.stroke();
 
-          // pure random
-          // ball.x = centerX + utils.range(-100, 100);
-          // ball.y = centerY + utils.range(-100, 100);
-
-          // consecutive random
-          ball.x = centerX + Math.sin(angleX) * range;
-          ball.y = centerY + Math.sin(angleY) * range;
-
+          // circle 
+          ball.x = centerX + Math.cos(angle) * radius;
+          ball.y = centerY + Math.sin(angle) * radius;
           ball.draw(ctx);
-          angleScale += speedScale;
-          angleX += speedX;
-          angleY += speedY;
+
+          // oval
+          ball.x = centerX + Math.cos(angle) * (radius + 100);
+          ball.y = centerY + Math.sin(angle) * (radius - 100);
+          angle += speed;
+          ball.draw(ctx);
         })()
 
       }
