@@ -54,24 +54,45 @@
         /* Code Here */
         
         const mouse = utils.captureMouse(canvas);
+        const touch = utils.captureTouch(canvas);
         ctx.lineWidth = 20;
         ctx.lineCap = 'round';
 
-        canvas.addEventListener('mousedown', function () {
+        // canvas.addEventListener('mousedown', function () {
+        //   ctx.beginPath();
+        //   ctx.moveTo(mouse.x, mouse.y);
+
+        //   canvas.addEventListener('mousemove', mouseMove,false)
+        // },false);
+
+        // canvas.addEventListener('mouseup', function () {
+        //   canvas.removeEventListener('mousemove', mouseMove, false)
+        // },false);
+
+        // function mouseMove () {
+        //   ctx.lineTo(mouse.x, mouse.y);
+        //   ctx.stroke()
+        // }
+
+        canvas.addEventListener('touchstart', function (event) {
           ctx.beginPath();
-          ctx.moveTo(mouse.x, mouse.y);
+          console.log(event)
+          ctx.moveTo(touch.x, touch.y);
 
-          canvas.addEventListener('mousemove', mouseMove,false)
+          canvas.addEventListener('touchmove', touchMove,false)
         },false);
 
-        canvas.addEventListener('mouseup', function () {
-          canvas.removeEventListener('mousemove', mouseMove, false)
+        canvas.addEventListener('touchend', function () {
+          canvas.removeEventListener('mousemove', touchMove, false)
         },false);
 
-        function mouseMove () {
-          ctx.lineTo(mouse.x, mouse.y);
+        function touchMove () {
+          console.log(touch.x, touch.y)
+          ctx.lineTo(touch.x, touch.y);
           ctx.stroke()
         }
+
+
 
 
       }
