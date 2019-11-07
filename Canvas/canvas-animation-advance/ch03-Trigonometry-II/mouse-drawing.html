@@ -56,7 +56,8 @@
         
         const mouse = utils.captureMouse(canvas);
         const touch = utils.captureTouch(canvas);
-        ctx.lineWidth = 20;
+        let lastTouchStartStamp = Date.now();
+        ctx.lineWidth = 15;
         ctx.lineCap = 'round';
 
         canvas.addEventListener('mousedown', function () {
@@ -76,9 +77,14 @@
         }
 
         canvas.addEventListener('touchstart', function (event) {
+          const currentTouchStartStamp = Date.now();
+          if(currentTouchStartStamp - lastTouchStartStamp < 200) {
+            clearCanvas();
+          }
+          lastTouchStartStamp = currentTouchStartStamp;
+
           ctx.beginPath();
           ctx.moveTo(touch.x, touch.y);
-
           canvas.addEventListener('touchmove', touchMove,false)
         },false);
 
@@ -92,7 +98,9 @@
         }
 
 
-
+        canvas.addEventListener('dblclick', function() {
+          clearCanvas();
+        },false);
 
       }
     }
