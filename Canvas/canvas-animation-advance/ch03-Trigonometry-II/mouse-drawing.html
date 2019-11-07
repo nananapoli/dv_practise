@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>Canvas Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <style type="text/css">
     * {
       margin: 0;
@@ -58,25 +59,24 @@
         ctx.lineWidth = 20;
         ctx.lineCap = 'round';
 
-        // canvas.addEventListener('mousedown', function () {
-        //   ctx.beginPath();
-        //   ctx.moveTo(mouse.x, mouse.y);
+        canvas.addEventListener('mousedown', function () {
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
 
-        //   canvas.addEventListener('mousemove', mouseMove,false)
-        // },false);
+          canvas.addEventListener('mousemove', mouseMove,false)
+        },false);
 
-        // canvas.addEventListener('mouseup', function () {
-        //   canvas.removeEventListener('mousemove', mouseMove, false)
-        // },false);
+        canvas.addEventListener('mouseup', function () {
+          canvas.removeEventListener('mousemove', mouseMove, false)
+        },false);
 
-        // function mouseMove () {
-        //   ctx.lineTo(mouse.x, mouse.y);
-        //   ctx.stroke()
-        // }
+        function mouseMove () {
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke()
+        }
 
         canvas.addEventListener('touchstart', function (event) {
           ctx.beginPath();
-          console.log(event)
           ctx.moveTo(touch.x, touch.y);
 
           canvas.addEventListener('touchmove', touchMove,false)
@@ -87,7 +87,6 @@
         },false);
 
         function touchMove () {
-          console.log(touch.x, touch.y)
           ctx.lineTo(touch.x, touch.y);
           ctx.stroke()
         }
