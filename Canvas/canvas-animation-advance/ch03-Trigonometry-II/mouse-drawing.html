@@ -53,13 +53,14 @@
         }
 
         /* Code Here */
-        
         const mouse = utils.captureMouse(canvas);
         const touch = utils.captureTouch(canvas);
         let lastTouchStartStamp = Date.now();
         ctx.lineWidth = 15;
         ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
 
+        // PC端
         canvas.addEventListener('mousedown', function () {
           ctx.beginPath();
           ctx.moveTo(mouse.x, mouse.y);
@@ -76,6 +77,7 @@
           ctx.stroke()
         }
 
+        // mobile端
         canvas.addEventListener('touchstart', function (event) {
           const currentTouchStartStamp = Date.now();
           if(currentTouchStartStamp - lastTouchStartStamp < 200) {

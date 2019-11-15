@@ -83,12 +83,24 @@
         const scene = new Image();
         scene.src = 'lantern.jpg';
         scene.onload = () => {
+          return;
           cw = canvas.width = scene.width;
           ch = canvas.height = scene.height;
           ctx.drawImage(scene,0,0);
 
           //const imageData = ctx.getImageData(0,0,cw,ch);
           imageEl.src = canvas.toDataURL('image/jpeg', 1);
+        }
+
+        canvas.width = 100;
+        canvas.height = 100;
+        const infernape = new Image();
+        infernape.src = 'infernape.jpg';
+        infernape.onload = () => {
+          ctx.beginPath();
+          ctx.arc(50,50,50,0,Math.PI*2,false);
+          ctx.clip();
+          ctx.drawImage(infernape,0,0,100,100);
         }
 
 
